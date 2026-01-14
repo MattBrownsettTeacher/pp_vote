@@ -17,5 +17,6 @@
   </ul>
 
   <p><a href="?page=about">Go to About</a></p>
+  <p><a href="?page=proposals">Go to Proposals</a></p>
 </body>
 </html>
