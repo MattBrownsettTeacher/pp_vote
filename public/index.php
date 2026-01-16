@@ -1,43 +1,30 @@
 <?php
 /**
- * public/index.php – Front Controller
- * 
- * Lesson 1: Front Controller (single entry point)
- * URL examples:
- *   http://localhost/pp_vote/public/
- *   http://localhost/pp_vote/public/?page=about
- * 
- * Lesson 2 adds:
- * - proposals list page
- * - proposals create form
- * - proposals store route (POST handling)
+ * public/index.php – Front Controller (Router)
+ * Lesson 3: route requests to Controller classes (OOP)
  */
+
+require_once __DIR__ . '/../app/Controllers/ProposalController.php';
 
 $page = $_GET['page'] ?? 'home';
 
-// ---------- POST handling (Lesson 2) ----------
-if ($page === 'proposals-store') {
-    // Minimal back-end handling for Lesson 2
-    // (Real validation + FormHelper comes later)
-    $title = $_POST['title'] ?? '';
-    $description = $_POST['description'] ?? '';
+$proposalController = new ProposalController();
 
-    require_once __DIR__ . '/../app/Views/proposals/store_result.php';
-    exit;
-}
-
-// ---------- GET routing ----------
 switch ($page) {
-    case 'about':
-        require_once __DIR__ . '/../app/Views/about.php';
-        break;
-
     case 'proposals':
-        require_once __DIR__ . '/../app/Views/proposals/index.php';
+        $proposalController->index();
         break;
 
     case 'proposals-create':
-        require_once __DIR__ . '/../app/Views/proposals/create.php';
+        $proposalController->create();
+        break;
+
+    case 'proposals-store':
+        $proposalController->store();
+        break;
+
+    case 'about':
+        require_once __DIR__ . '/../app/Views/about.php';
         break;
 
     case 'home':
